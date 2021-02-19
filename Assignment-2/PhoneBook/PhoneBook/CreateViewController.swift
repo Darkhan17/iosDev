@@ -36,12 +36,12 @@ class CreateViewController: UIViewController {
         let destination = segue.destination as! ViewController
         destination.name = name.text
         destination.phoneNumber = phoneNumber.text
-        destination.gender = "female"
-        destination.image = UIImage.init(named: "female")
+        destination.gender =  gender ?? "male"
+        destination.image = UIImage.init(named: destination.gender!)
         
     }
     
-    
+
     
     
     /*
