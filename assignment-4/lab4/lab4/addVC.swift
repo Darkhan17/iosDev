@@ -25,7 +25,6 @@ class addVC: UIViewController {
         let destination = segue.destination as! CharacterVC
         destination.name = name.text
         destination.url = url.text
-    
     }
     
     

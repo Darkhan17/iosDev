@@ -9,13 +9,19 @@ import UIKit
 import WebKit
 
 
-class infoVC: UIViewController {
 
+class infoVC: UIViewController {
+    
+    
     @IBOutlet weak var webview: WKWebView!
+    var name : String?
+    var url : String?
     var my_url:String?
+    var favourite : Bool?
+    var index : Int?
     
     @IBOutlet weak var touchView: UIView!
-    
+    var completion: ((Int,Bool) -> ())?
     override func viewDidLoad() {
         super.viewDidLoad()
         UpdateUI()
@@ -24,7 +30,12 @@ class infoVC: UIViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
+        if favourite == true {
+            navigationController?.navigationBar.backgroundColor = UIColor.yellow
+        }
+        else{
+            navigationController?.navigationBar.backgroundColor = UIColor.white
+        }
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
         tapGesture.numberOfTouchesRequired = 1
         touchView.addGestureRecognizer(tapGesture)
@@ -40,9 +51,14 @@ class infoVC: UIViewController {
     
     
     @objc private func didTap(_ gesture : UITapGestureRecognizer){
-        print("pressed")
-        
+        favourite = true
+        completion?(index!, favourite!)
     }
+    
+
+    
+    
+    
     
     // MARK: - Table view data source
 

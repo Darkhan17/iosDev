@@ -88,10 +88,18 @@ class CharacterVC: UITableViewController {
                         destination.my_url = characters[row].url
                         destination.navigationItem.title = characters[row].name
                     }
+                    destination.completion = { [weak self] index, favourite in guard let self = self else {return}
+                        if (favourite==true){
+                            self.favourites.append(self.characters[index])
+                            }
+                        else{
+                            self.favourites.remove(at: index)
+                            }
+                        }
+                    }
                 }
             }
         }
-    }
     
     
     @IBAction func unwindToMain(_ unwindSegue: UIStoryboardSegue) {
