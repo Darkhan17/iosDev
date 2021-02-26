@@ -21,7 +21,7 @@ class Rectangle: Shape {
     }
     
     override func drow(){
-        let rect = CGRect(origin: p1, size: CGSize(width: abs(p2.x - p1.x), height: abs(p2.y - p1.y)))
+        let rect = CGRect(origin: p1, size: CGSize(width: abs(max(p2.x,p1.x) - min(p2.x, p1.x)), height: abs(max(p2.y,p1.y) - min(p1.y, p2.y))))
         let path = UIBezierPath(rect: rect)
         super.drowPath(path: path)
     }
