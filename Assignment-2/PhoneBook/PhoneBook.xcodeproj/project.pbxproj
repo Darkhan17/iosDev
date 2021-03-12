@@ -17,6 +17,8 @@
 		50B50EE725D591A500C1DCD8 /* CustomTCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B50EE625D591A500C1DCD8 /* CustomTCell.swift */; };
 		50B50EEB25D599B500C1DCD8 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B50EEA25D599B500C1DCD8 /* DetailViewController.swift */; };
 		50B50EEF25D5AF2700C1DCD8 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50B50EEE25D5AF2700C1DCD8 /* CreateViewController.swift */; };
+		50BCDFD125FB3894007DC643 /* NewsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDFD025FB3894007DC643 /* NewsVC.swift */; };
+		50BCDFD425FB38AA007DC643 /* FacultiesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 50BCDFD325FB38AA007DC643 /* FacultiesVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		50B50EE625D591A500C1DCD8 /* CustomTCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTCell.swift; sourceTree = "<group>"; };
 		50B50EEA25D599B500C1DCD8 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		50B50EEE25D5AF2700C1DCD8 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
+		50BCDFD025FB3894007DC643 /* NewsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsVC.swift; sourceTree = "<group>"; };
+		50BCDFD325FB38AA007DC643 /* FacultiesVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FacultiesVC.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -67,6 +71,8 @@
 				50B50EC925D56EA400C1DCD8 /* AppDelegate.swift */,
 				50B50ECB25D56EA400C1DCD8 /* SceneDelegate.swift */,
 				50B50ECD25D56EA400C1DCD8 /* ViewController.swift */,
+				50BCDFD025FB3894007DC643 /* NewsVC.swift */,
+				50BCDFD325FB38AA007DC643 /* FacultiesVC.swift */,
 				50B50EDE25D577A200C1DCD8 /* Contact.swift */,
 				50B50ECF25D56EA400C1DCD8 /* Main.storyboard */,
 				50B50EEE25D5AF2700C1DCD8 /* CreateViewController.swift */,
@@ -156,7 +162,9 @@
 				50B50ECA25D56EA400C1DCD8 /* AppDelegate.swift in Sources */,
 				50B50EEF25D5AF2700C1DCD8 /* CreateViewController.swift in Sources */,
 				50B50EE725D591A500C1DCD8 /* CustomTCell.swift in Sources */,
+				50BCDFD425FB38AA007DC643 /* FacultiesVC.swift in Sources */,
 				50B50EEB25D599B500C1DCD8 /* DetailViewController.swift in Sources */,
+				50BCDFD125FB3894007DC643 /* NewsVC.swift in Sources */,
 				50B50ECC25D56EA400C1DCD8 /* SceneDelegate.swift in Sources */,
 				50B50EDF25D577A200C1DCD8 /* Contact.swift in Sources */,
 			);

@@ -1,83 +1,49 @@
 //
-//  infoVC.swift
-//  lab4
+//  TableViewController.swift
+//  KBTU
 //
-//  Created by Khamitov Darkhan on 2/25/21.
+//  Created by Khamitov Darkhan on 3/11/21.
 //
 
 import UIKit
-import WebKit
 
+class TableViewController: UITableViewController {
+    
+    private var events = :
 
-
-class infoVC: UIViewController {
-    
-    
-    @IBOutlet weak var webview: WKWebView!
-    var name : String?
-    var url : String?
-    var my_url:String?
-    var favourite : Bool?
-    var index : Int?
-    
-    @IBOutlet weak var touchView: UIView!
-    var completion: ((Int,Bool, String) -> ())?
     override func viewDidLoad() {
         super.viewDidLoad()
-        UpdateUI()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        if favourite == true {
-            navigationController?.navigationBar.backgroundColor = UIColor.yellow
-        }
-        else{
-            navigationController?.navigationBar.backgroundColor = UIColor.white
-        }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        tapGesture.numberOfTouchesRequired = 1
-        touchView.addGestureRecognizer(tapGesture)
     }
 
- 
-    func UpdateUI(){
-        if let safeLink = my_url {
-                    let url = URL(string: safeLink)
-                    webview.load(URLRequest(url: url!))
-                }
-    }
-    
-    
-    @objc private func didTap(_ gesture : UITapGestureRecognizer){
-        print(favourite!)
-        if (favourite == true){
-            favourite = false
-        }
-        else{
-            favourite = true
-        }
-        completion?(index!, favourite!, name!)
-    }
-    
-
-    
-    
-    
-    
     // MARK: - Table view data source
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
 
-    /*
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return events.count
+    }
+
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "categoryCell", for: indexPath)
+        cell.textLabel?.text = events[indexPath.row].name;
+        
 
         // Configure the cell...
 
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -123,5 +89,6 @@ class infoVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+   
 
 }

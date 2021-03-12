@@ -1,83 +1,46 @@
 //
-//  infoVC.swift
-//  lab4
+//  NewsVC.swift
+//  KBTU
 //
-//  Created by Khamitov Darkhan on 2/25/21.
+//  Created by Khamitov Darkhan on 3/12/21.
 //
 
 import UIKit
-import WebKit
 
-
-
-class infoVC: UIViewController {
+class NewsVC: UITableViewController {
     
-    
-    @IBOutlet weak var webview: WKWebView!
-    var name : String?
-    var url : String?
-    var my_url:String?
-    var favourite : Bool?
-    var index : Int?
-    
-    @IBOutlet weak var touchView: UIView!
-    var completion: ((Int,Bool, String) -> ())?
+    private var news = [New](arrayLiteral: New.init(newsTitle: "The Academic Skills course is aiming at an earlier immersion of high school graduates", date: "10.03.2021"),
+                             New.init(newsTitle: "ЗАПУСКАЕМ ЧЕТВЕРТЫЙ ПОТОК ОНЛАЙН КУРСОВ АНГЛИЙСКОГО ЯЗЫКА STEP", date: "10.03.2021")
+                             )
     override func viewDidLoad() {
         super.viewDidLoad()
-        UpdateUI()
+
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        if favourite == true {
-            navigationController?.navigationBar.backgroundColor = UIColor.yellow
-        }
-        else{
-            navigationController?.navigationBar.backgroundColor = UIColor.white
-        }
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(didTap(_:)))
-        tapGesture.numberOfTouchesRequired = 1
-        touchView.addGestureRecognizer(tapGesture)
     }
 
- 
-    func UpdateUI(){
-        if let safeLink = my_url {
-                    let url = URL(string: safeLink)
-                    webview.load(URLRequest(url: url!))
-                }
-    }
-    
-    
-    @objc private func didTap(_ gesture : UITapGestureRecognizer){
-        print(favourite!)
-        if (favourite == true){
-            favourite = false
-        }
-        else{
-            favourite = true
-        }
-        completion?(index!, favourite!, name!)
-    }
-    
-
-    
-    
-    
-    
     // MARK: - Table view data source
 
+    override func numberOfSections(in tableView: UITableView) -> Int {
+        // #warning Incomplete implementation, return the number of sections
+        return 1
+    }
 
-    /*
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        // #warning Incomplete implementation, return the number of rows
+        return news.count
+    }
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: "newsCell", for: indexPath)
+        cell.textLabel?.text = news[indexPath.row].newsTitle
+        cell.detailTextLabel?.text = news[indexPath.row].date
         return cell
     }
-    */
+    
 
     /*
     // Override to support conditional editing of the table view.
@@ -123,5 +86,12 @@ class infoVC: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let destination = segue.destination as! NewsDetaildeVC
+        if let row = tableView.indexPathForSelectedRow?.row{
+            destination.newsTitle.text = news[row].newsTitle
+            destination.newsText.text = news[row].newsTitle
+        }
+    }
 }

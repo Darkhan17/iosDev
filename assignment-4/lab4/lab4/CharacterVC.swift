@@ -87,18 +87,39 @@ class CharacterVC: UITableViewController {
                     if let row = tableView.indexPathForSelectedRow?.row{
                         destination.my_url = characters[row].url
                         destination.navigationItem.title = characters[row].name
+                        destination.index = row
+                        destination.favourite = characters[row].favourite
+                        destination.name = characters[row].name
                     }
-                    destination.completion = { [weak self] index, favourite in guard let self = self else {return}
+                    destination.completion = { [weak self] index, favourite , name1 in guard let self = self else {return}
                         if (favourite==true){
+                            self.characters[index].favourite = true
                             self.favourites.append(self.characters[index])
+                            var j = 0
+                            for item in self.websites{
+                                if (item.name == name1 ){
+                                    self.websites.remove(at: j)
+                                }
+                                j=j+1
+                            }
                             }
                         else{
-                            self.favourites.remove(at: index)
+                            var i = 0
+                            for item in self.favourites{
+                                
+                                if (item.name == name1){
+                                    self.favourites[i].favourite = false
+                                    self.websites.append(self.favourites[i])
+                                    self.favourites.remove(at: i)
+                                    }
+                                i=i+1
+                                }
                             }
                         }
                     }
                 }
             }
+        tableView.reloadData()
         }
     
     
