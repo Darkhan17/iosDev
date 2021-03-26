@@ -18,10 +18,18 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
         let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
         if let locations = try? context.fetch(fetchRequest){
             for pin in locations{
-                context.delete(pin)
-                
+                if(pin.title == annotation.title){
+                    context.delete(pin)
+                }
             }
         }
+        do {
+            try context.save()
+        }
+        catch let error as NSError{
+            print(error.localizedDescription)
+        }
+        
         myMap.removeAnnotation(annotation)
     }
     
@@ -37,7 +45,7 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
     
     var locationTitle: String?
     var locationSubtitle: String?
-    var locationIndex: Int?
+    var locationIndex = 0
     var annotation: MKAnnotation?
     var coordinate: CLLocationCoordinate2D?
     var locations : [Location] = []
@@ -98,17 +106,21 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
         
         do {
             locations = try context.fetch(fetchRequest)
+            var flag = true
             for pin in locations{
                 for annotation in myMap.annotations{
                     if (annotation.title == pin.title){
-                        self.myMap.removeAnnotation(annotation)
+                        flag = false
                     }
-                let currentAnnotation = MKPointAnnotation()
-                currentAnnotation.title = pin.title
-                currentAnnotation.subtitle = pin.subtitle
-                currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
-                myMap.addAnnotation(currentAnnotation)
                 }
+                if (flag){
+                    let currentAnnotation = MKPointAnnotation()
+                    currentAnnotation.title = pin.title
+                    currentAnnotation.subtitle = pin.subtitle
+                    currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+                    myMap.addAnnotation(currentAnnotation)
+                }
+                flag = true
             }
         } catch let error as NSError{
             print(error.localizedDescription)
@@ -190,9 +202,9 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
     }
     
     @IBAction func leftPressed(_ sender: Any) {
-        if (locationIndex!>0){
-            locationIndex = locationIndex! - 1
-            annotation = myMap.annotations[locationIndex!]
+        if (locationIndex>0){
+            locationIndex = locationIndex - 1
+            annotation = myMap.annotations[locationIndex]
             let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             myMap.setRegion(MKCoordinateRegion(center: annotation!.coordinate, span: span), animated: true)
             navigationItem.title = (annotation?.title)!
@@ -200,10 +212,9 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
     }
     
     @IBAction func rightPressed(_ sender: Any) {
-        if (locationIndex!+1<myMap.annotations.count){
-            print(locationIndex!)
-            locationIndex = locationIndex! + 1
-            annotation = myMap.annotations[locationIndex!]
+        if (locationIndex+1<myMap.annotations.count){
+            locationIndex = locationIndex + 1
+            annotation = myMap.annotations[locationIndex]
             let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
             myMap.setRegion(MKCoordinateRegion(center: annotation!.coordinate, span: span), animated: true)
             navigationItem.title = (annotation?.title)!

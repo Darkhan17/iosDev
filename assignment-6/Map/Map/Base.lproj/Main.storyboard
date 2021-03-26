@@ -29,14 +29,12 @@
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oMj-9u-uiu">
                                 <rect key="frame" x="0.0" y="821" width="40" height="31"/>
-                                <state key="normal" title="left"/>
                                 <connections>
                                     <action selector="leftPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="jwM-Sq-JsA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="I7w-a6-VTB">
                                 <rect key="frame" x="374" y="821" width="40" height="31"/>
-                                <state key="normal" title="right"/>
                                 <connections>
                                     <action selector="rightPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="8JN-yj-b7j"/>
                                 </connections>
