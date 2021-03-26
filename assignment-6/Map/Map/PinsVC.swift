@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import CoreData
 
 
 protocol deleteAnnotation {
@@ -21,6 +22,8 @@ class PinsVC: UITableViewController{
     var delegate: ChangeLocation?
     var pins =  [MKAnnotation]()
     var deleteDelegate : deleteAnnotation?
+    var mainDelegate: ViewController?
+    var locations : [Location] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -112,7 +115,9 @@ class PinsVC: UITableViewController{
                 deleteDelegate?.delete(annotation: pins[indexPath.row])
                 pins.remove(at: indexPath.row)
                 tableView.deleteRows(at: [indexPath], with: .fade)
-                print(indexPath.row)
+                
+                
+                    
             } else if editingStyle == .insert {
                 // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
             }

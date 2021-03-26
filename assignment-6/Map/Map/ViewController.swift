@@ -12,6 +12,16 @@ import CoreData
 
 class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, deleteAnnotation {
     func delete(annotation: MKAnnotation) {
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        
+        let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
+        if let locations = try? context.fetch(fetchRequest){
+            for pin in locations{
+                context.delete(pin)
+                
+            }
+        }
         myMap.removeAnnotation(annotation)
     }
     
@@ -30,7 +40,7 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
     var locationIndex: Int?
     var annotation: MKAnnotation?
     var coordinate: CLLocationCoordinate2D?
-    var locatios : [Location] = []
+    var locations : [Location] = []
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let annotationView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: "Annotation")
         annotationView.pinTintColor = .blue
@@ -56,9 +66,57 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
         
         annotation = location
         performSegue(withIdentifier: "detail", sender: self)
-
     }
     
+    func saveAnnotation(annotation: MKAnnotation) {
+        let appdelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appdelegate.persistentContainer.viewContext
+        
+        guard let entity =  NSEntityDescription.entity(forEntityName: "Location", in: context)
+        else{return}
+        
+        let mapObject = Location(entity: entity, insertInto: context)
+        mapObject.title = annotation.title!!
+        mapObject.subtitle = annotation.subtitle!!
+        mapObject.latitude = annotation.coordinate.latitude
+        mapObject.longitude = annotation.coordinate.longitude
+        
+        do{
+            try context.save()
+        } catch let error as NSError{
+            print(error.localizedDescription)
+
+        }
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest : NSFetchRequest<Location> = Location.fetchRequest()
+        
+        do {
+            locations = try context.fetch(fetchRequest)
+            for pin in locations{
+                for annotation in myMap.annotations{
+                    if (annotation.title == pin.title){
+                        self.myMap.removeAnnotation(annotation)
+                    }
+                let currentAnnotation = MKPointAnnotation()
+                currentAnnotation.title = pin.title
+                currentAnnotation.subtitle = pin.subtitle
+                currentAnnotation.coordinate = CLLocationCoordinate2D(latitude: pin.latitude, longitude: pin.longitude)
+                myMap.addAnnotation(currentAnnotation)
+                }
+            }
+        } catch let error as NSError{
+            print(error.localizedDescription)
+        }
+    }
+    
+    
+
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detail"{
@@ -114,6 +172,7 @@ class ViewController: UIViewController, MKMapViewDelegate, ChangeLocation, delet
             
             
             self?.myMap.addAnnotation(annotation)
+            self?.saveAnnotation(annotation: annotation)
             self?.myMap?.selectAnnotation(annotation, animated: true)
 
         }
