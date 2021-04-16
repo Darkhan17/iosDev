@@ -44,7 +44,7 @@ class ViewController: UIViewController {
     
     
         UIView.animate(withDuration: 0.7, delay: 0, options: .curveEaseOut, animations: {
-        self.secondTextFieldConstraint.constant -= self.view.bounds.width
+            self.secondTextFieldConstraint.constant -= self.view.bounds.width
         self.view.layoutIfNeeded()
     }, completion: nil)
         
